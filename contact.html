@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tactile Studio® — Direct Desk // Contact & Orders</title>
+    <meta name="description" content="Ultra-high-end interactive 3D flagship mobile inquiry desk. Next-gen tech, zero hassle.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,600;0,800;0,900;1,400;1,600&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="contact.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+
+    <!-- External Libraries: Three.js & GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body class="contact-body">
+
+    <!-- High-Frequency Grain & Chromatic Noise Overlay -->
+    <div class="grain-overlay" aria-hidden="true"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
+
+    <!-- Fullscreen 3D WebGL Canvas -->
+    <canvas id="contact-canvas"></canvas>
+
+    <!-- 3D Phone Screen In-Memory Offscreen Canvas -->
+    <canvas id="phone-screen-canvas" width="600" height="1200" style="display:none;"></canvas>
+
+    <!-- Top Perimeter HUD -->
+    <header class="contact-hud">
+        <div class="hud-brand-wrap">
+            <a href="index.html" class="contact-brand-link">
+                <span class="hud-monogram">✦</span>
+                <span class="hud-brand-title">TACTILE STUDIO®</span>
+            </a>
+            <div class="hud-status-badge">
+                <span class="status-pulse-dot active-green"></span>
+                <span class="status-badge-text">LIVE ADVISORS ONLINE // PKT</span>
+            </div>
+        </div>
+
+        <nav class="hud-nav-actions">
+            <a href="index.html#merci-projects-section" class="contact-nav-pill">
+                <span>← PHONES</span>
+            </a>
+            <a href="index.html#accessories-3d-section" class="contact-nav-pill">
+                <span>ACCESSORIES [3D]</span>
+            </a>
+            <button class="perimeter-sound-btn" id="sound-toggle" title="Toggle Soundscape">
+                <span id="sound-label">SOUND: ON</span>
+                <div class="equalizer-bars">
+                    <span class="sound-bar"></span>
+                    <span class="sound-bar"></span>
+                    <span class="sound-bar"></span>
+                    <span class="sound-bar"></span>
+                </div>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Main Interactive Contact Workspace -->
+    <main class="contact-workspace">
+
+        <!-- Left 3D Interactive Telemetry & Brand Emblems HUD -->
+        <div class="contact-3d-hud">
+            <div class="telemetry-box">
+                <div class="telemetry-label">[ 3D DEVICE TELEMETRY ]</div>
+                <div class="telemetry-row">
+                    <span class="telemetry-key">CHASSIS:</span>
+                    <span class="telemetry-val">TITANIUM GRADE 5</span>
+                </div>
+                <div class="telemetry-row">
+                    <span class="telemetry-key">PTA STATUS:</span>
+                    <span class="telemetry-val text-green">100% VERIFIED OFFICIAL</span>
+                </div>
+                <div class="telemetry-row">
+                    <span class="telemetry-key">TIME (PKT):</span>
+                    <span class="telemetry-val" id="telemetry-time">22:00:00</span>
+                </div>
+            </div>
+
+            <!-- Floating 3D Brand Emblems Selector (Synchronized with 3D Scene) -->
+            <div class="brand-tokens-strip">
+                <span class="strip-label">[ FAST SELECT HARDWARE CATEGORY ]</span>
+                <div class="token-buttons-row">
+                    <button class="token-btn active" data-brand="apple" title="Filter Apple iPhones">
+                        <span class="token-icon"></span>
+                        <span class="token-name">APPLE</span>
+                    </button>
+                    <button class="token-btn" data-brand="samsung" title="Filter Samsung Galaxy">
+                        <span class="token-icon">S</span>
+                        <span class="token-name">SAMSUNG</span>
+                    </button>
+                    <button class="token-btn" data-brand="adapters" title="Filter Adapters & Chargers">
+                        <span class="token-icon">⚡</span>
+                        <span class="token-name">ADAPTERS</span>
+                    </button>
+                    <button class="token-btn" data-brand="powerbanks" title="Filter Power Banks">
+                        <span class="token-icon">🔋</span>
+                        <span class="token-name">POWERBANKS</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 3D Trust Hologram Badge Overlay -->
+            <div class="hologram-trust-badge">
+                <div class="badge-ring">
+                    <span class="badge-icon">✦</span>
+                    <span class="badge-text">PTA APPROVED • 100% GENUINE • OFFICIAL WARRANTY</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Glassmorphic Inquiry Desk Interface -->
+        <div class="contact-form-panel">
+            <div class="panel-header">
+                <div class="panel-eyebrow">TACTILE DESK // DIRECT ORDERS</div>
+                <h1 class="panel-title">TRANSMIT INQUIRY</h1>
+                <p class="panel-desc">Direct dispatch, reserve flagship box packs, or get instant trade-in appraisals.</p>
+            </div>
+
+            <form id="contact-inquiry-form" class="inquiry-form" autocomplete="off">
+
+                <!-- Inquiry Type Chips -->
+                <div class="form-group">
+                    <label class="form-label">[ INQUIRY TYPE ]</label>
+                    <div class="inquiry-chips-row" id="chips-container">
+                        <button type="button" class="chip-btn active" data-type="Buy Box Pack">
+                            <span>BUY BOX PACK</span>
+                        </button>
+                        <button type="button" class="chip-btn" data-type="Trade-In Exchange">
+                            <span>TRADE-IN EXCHANGE</span>
+                        </button>
+                        <button type="button" class="chip-btn" data-type="PTA Verification">
+                            <span>PTA VERIFICATION</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Full Name & WhatsApp Fields -->
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label for="contact-name" class="form-label">FULL NAME *</label>
+                        <input type="text" id="contact-name" class="glass-input" placeholder="e.g. Bilal Ahmed" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-phone" class="form-label">WHATSAPP / PHONE *</label>
+                        <input type="tel" id="contact-phone" class="glass-input" placeholder="+92 300 1234567" required>
+                    </div>
+                </div>
+
+                <!-- Target Model Dropdown -->
+                <div class="form-group">
+                    <label for="contact-model" class="form-label">TARGET MODEL / ACCESSORY *</label>
+                    <div class="select-wrapper">
+                        <select id="contact-model" class="glass-input glass-select" required>
+                            <optgroup label="Apple iPhone Flagships" data-brand="apple">
+                                <option value="18 PRO MAX — Burgundy (256 GB , PTA APPROVED , BOX PACK)" selected>18 PRO MAX — Burgundy (256 GB , PTA APPROVED , BOX PACK)</option>
+                                <option value="17 PRO MAX — All colors (256/512 GB & PTA/NON Available)">17 PRO MAX — All colors (256/512 GB & PTA/NON Available)</option>
+                                <option value="16 PRO MAX — Desert/ Black Titanium (256/512 GB PTA Approved)">16 PRO MAX — Desert/ Black Titanium (256/512 GB PTA Approved)</option>
+                                <option value="15 PRO MAX — ALL Colors (512/256/128 GB , NON-PTA)">15 PRO MAX — ALL Colors (512/256/128 GB , NON-PTA)</option>
+                            </optgroup>
+                            <optgroup label="Samsung Galaxy Flagships" data-brand="samsung">
+                                <option value="S25 Ultra — ALL Colors (256 GB PTA Approved)">S25 Ultra — ALL Colors (256 GB PTA Approved)</option>
+                                <option value="S24 Ultra — ALL Colors (512 GB NON-PTA)">S24 Ultra — ALL Colors (512 GB NON-PTA)</option>
+                            </optgroup>
+                            <optgroup label="Charging Adapters & Audio Accessories" data-brand="adapters">
+                                <option value="Apple 30W USB-C Power Adapter (Official)">Apple 30W USB-C Power Adapter (Official)</option>
+                                <option value="Ronin Dual Port Fast Charger">Ronin Dual Port Fast Charger</option>
+                                <option value="Official Samsung 25W USB-C Black Charger">Official Samsung 25W USB-C Black Charger</option>
+                                <option value="AirPods Charging Capsule — ANC Wireless Case">AirPods Charging Capsule — ANC Wireless Case</option>
+                            </optgroup>
+                            <optgroup label="High-Performance Power Banks" data-brand="powerbanks">
+                                <option value="Anker 737 Power Bank (PowerCore 24K 140W Ultra-Fast)">Anker 737 Power Bank (PowerCore 24K 140W Ultra-Fast)</option>
+                                <option value="Baseus Blade 100W Power Bank (20,000mAh Ultra-Thin)">Baseus Blade 100W Power Bank (20,000mAh Ultra-Thin)</option>
+                            </optgroup>
+                        </select>
+                        <span class="select-arrow">▼</span>
+                    </div>
+                </div>
+
+                <!-- Message / Special Request -->
+                <div class="form-group">
+                    <label for="contact-msg" class="form-label">MESSAGE / SPECIAL SPECIFICATIONS</label>
+                    <textarea id="contact-msg" class="glass-input glass-textarea" rows="3" placeholder="Specify color preference, PTA requirements, or trade-in device model..."></textarea>
+                </div>
+
+                <!-- Transmit CTA Button -->
+                <button type="submit" class="transmit-cta-btn" id="btn-transmit">
+                    <span class="cta-label">[ TRANSMIT INQUIRY ⮡ ]</span>
+                    <span class="cta-loading">ENCRYPTING & TRANSMITTING...</span>
+                </button>
+
+            </form>
+
+            <!-- Transmission Confirmation Dialog -->
+            <div class="transmission-status-modal" id="transmission-modal">
+                <div class="modal-box">
+                    <div class="modal-top">
+                        <span class="modal-beacon"></span>
+                        <span class="modal-title">TRANSMISSION CONFIRMED // OK</span>
+                    </div>
+                    <div class="modal-body">
+                        <p class="modal-text">Your inquiry has been routed to our direct desk advisors. We will reach you on WhatsApp within 15 minutes.</p>
+                        <div class="modal-code">
+                            <span>REF HASH:</span>
+                            <span id="modal-ref-code">TX-91480F</span>
+                        </div>
+                    </div>
+                    <div class="modal-actions" style="display: flex; gap: 0.75rem; margin-top: 1.4rem;">
+                        <a href="https://wa.me/923247118186" id="modal-wa-link" target="_blank" rel="noopener noreferrer" class="modal-wa-btn" style="flex: 1; padding: 0.8rem; background: rgba(16, 185, 129, 0.15); border: 1px solid #10B981; color: #A7F3D0; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.12em; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
+                            <span>⮡ CHAT ON WHATSAPP</span>
+                        </a>
+                        <button type="button" class="modal-close-btn" id="btn-modal-close" style="flex: 1; margin-top: 0;">
+                            [ CLOSE & RESET ]
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Direct Connect Hubs (Quick Triggers) -->
+            <div class="direct-hubs-grid">
+                <a href="https://wa.me/923247118186?text=Hello%20Tactile%20Studio%2C%20I%20am%20inquiring%20about%20a%20flagship%20device." target="_blank" rel="noopener noreferrer" class="hub-card">
+                    <div class="hub-header">
+                        <span class="hub-icon">⮡</span>
+                        <span class="hub-title">WHATSAPP DIRECT</span>
+                    </div>
+                    <span class="hub-sub">+92 324 7118186 // Instant Desk</span>
+                </a>
+
+                <a href="tel:+923247118186" class="hub-card">
+                    <div class="hub-header">
+                        <span class="hub-icon">⮡</span>
+                        <span class="hub-title">DIRECT CALL</span>
+                    </div>
+                    <span class="hub-sub">+92 324 7118186 // 24/7 Direct Line</span>
+                </a>
+
+                <div class="hub-card hub-locations">
+                    <div class="hub-header">
+                        <span class="hub-icon">⮡</span>
+                        <span class="hub-title">FLAGSHIP BOUTIQUES</span>
+                    </div>
+                    <span class="hub-sub">Lahore: Gulberg III • Islamabad: Blue Area</span>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Scripts -->
+    <script src="audio.js"></script>
+    <script src="contact-3d.js"></script>
+    <script src="contact.js"></script>
+
+</body>
+</html>
+

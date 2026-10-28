@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tactile Studio® — Spatial Design & Digital Motion</title>
+    <meta name="description" content="Next-gen tech, zero hassle—find your next phone today.">
+    
+    <!-- Google Fonts: Canela/Playfair Display for editorial serif & Space Grotesk/Inter for micro-labels -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,600;0,800;0,900;1,400;1,600&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+
+    <!-- External Lib: Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body class="is-locked">
+
+    <!-- High-Frequency Grain & Chromatic Fringe Overlay -->
+    <div class="grain-overlay" aria-hidden="true"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
+
+    <!-- Background Ambient WebGL Radial Light Canvas -->
+    <canvas id="ambient-canvas" class="ambient-canvas"></canvas>
+
+    <!-- ==========================================================================
+         RESN-INSPIRED OPENING PORTAL ("THE TACTILE CORE") — 100% PRESERVED
+         ========================================================================== -->
+    <div class="core-portal-overlay" id="core-portal-overlay">
+        <!-- 3D Core Three.js WebGL Canvas -->
+        <canvas id="core-canvas"></canvas>
+
+        <!-- Floating Intuitive Interactive Target on Core -->
+        <div class="core-center-prompt" id="core-center-prompt">
+            <div class="core-prompt-ring"></div>
+            <div class="core-prompt-text">PRESS &amp; HOLD CORE TO VIEW</div>
+        </div>
+
+        <!-- SVG Cursor Circular Charge Tracker -->
+        <div class="core-cursor-tracker" id="core-cursor-tracker" aria-hidden="true">
+            <svg class="progress-svg" width="60" height="60" viewBox="0 0 60 60">
+                <circle class="track-circle" cx="30" cy="30" r="26"></circle>
+                <circle class="progress-circle" id="core-progress-circle" cx="30" cy="30" r="26"></circle>
+            </svg>
+            <span class="progress-crosshair">+</span>
+        </div>
+
+        <!-- Micro-HUD Elements (Pinned to Viewport Edges) -->
+        <div class="core-micro-hud">
+            <!-- Top-Left Brand Indicator -->
+            <div class="hud-pin top-left">
+                <span class="hud-brand-title">TACTILE STUDIO®</span>
+                <span class="hud-sub-tag">SPATIAL MOTION ARTIFACT</span>
+            </div>
+
+            <!-- Top-Right Audio Controller -->
+            <div class="hud-pin top-right">
+                <button class="portal-sound-btn" id="portal-sound-toggle" title="Toggle Audio Synthesizer">
+                    <span id="portal-sound-label">[Sound: ON]</span>
+                    <div class="equalizer-bars">
+                        <span class="sound-bar"></span>
+                        <span class="sound-bar"></span>
+                        <span class="sound-bar"></span>
+                        <span class="sound-bar"></span>
+                    </div>
+                </button>
+            </div>
+
+            <!-- Bottom-Left Studio Coordinates -->
+            <div class="hud-pin bottom-left">
+                <span>BRISTOL 51.4545° N, 2.5879° W</span>
+                <span class="hud-dim">CORE FREQUENCY: 320Hz</span>
+            </div>
+
+            <!-- Bottom-Center High-Affordance Hold-to-Open Controller -->
+            <div class="hud-pin bottom-center">
+                <div class="core-hold-button-wrapper">
+                    <button type="button" class="core-hint-container" id="core-hold-button" title="Press &amp; hold to open website">
+                        <div class="hold-progress-fill" id="core-hold-progress-fill"></div>
+                        <span class="core-pulse-beacon"></span>
+                        <span class="core-hint-text" id="core-hold-hint">HOLD TO OPEN</span>
+                        <span class="core-hold-percent" id="core-hold-percent">[ 0% ]</span>
+                    </button>
+                    <div class="core-sub-hint" id="core-sub-hint">PRESS &amp; HOLD CORE OR BUTTON TO ENTER</div>
+                </div>
+            </div>
+
+            <!-- Bottom-Right Frame Rate & Telemetry -->
+            <div class="hud-pin bottom-right">
+                <span id="hud-fps-indicator">60 FPS // LATENCY 12MS</span>
+                <span class="hud-dim">SHADERS: 3D SIMPLEX NOISE</span>
+            </div>
+        </div>
+
+        <!-- Post-Processing Chromatic Bloom Flash on Breach -->
+        <div class="core-breach-flash" id="core-breach-flash"></div>
+    </div>
+
+    <!-- ==========================================================================
+         REFOKUS KINETIC 3D ASSEMBLY HERO SECTION
+         ========================================================================== -->
+    <div class="assembly-hero-section" id="assembly-hero-section">
+
+        <!-- Sticky Viewport Wrapper -->
+        <div class="assembly-sticky-wrapper">
+
+            <!-- Perimeter HUD -->
+            <header class="perimeter-hud">
+                <!-- Top-Left Pill -->
+                <div class="hud-left">
+                    <button class="perimeter-pill" id="hud-menu-btn">
+                        <span>MENU</span>
+                    </button>
+                    <button class="perimeter-pill reenter-pill" id="btn-reenter-core" title="Re-enter The Core Opening">
+                        <span>✦ RE-ENTER CORE</span>
+                    </button>
+                </div>
+
+                <!-- Center Minimal Studio Mark -->
+                <div class="hud-center">
+                    <span class="studio-mark">TACTILE STUDIO®</span>
+                </div>
+
+                <!-- Top-Right Actions -->
+                <div class="hud-right">
+                    <a href="#merci-projects-section" class="perimeter-pill">
+                        <span>PHONES</span>
+                    </a>
+                    <a href="#accessories-3d-section" class="perimeter-pill">
+                        <span>ACCESSORIES [3D]</span>
+                    </a>
+                    <button class="perimeter-sound-btn" id="sound-toggle" title="Toggle Soundscape">
+                        <span id="sound-label">SOUND</span>
+                        <div class="equalizer-bars">
+                            <span class="sound-bar"></span>
+                            <span class="sound-bar"></span>
+                            <span class="sound-bar"></span>
+                            <span class="sound-bar"></span>
+                        </div>
+                    </button>
+                    <a href="contact.html" class="perimeter-pill contact-pill">
+                        <span>CONTACT</span>
+                    </a>
+                </div>
+            </header>
+
+            <!-- 3D WebGL Canvas (Segmented Monolith + Ribbed Purple Backdrop) -->
+            <canvas id="assembly-canvas"></canvas>
+
+            <!-- Center Brand Lockup (Reveals with high-contrast clarity as slabs assemble) -->
+            <div class="center-brand-lockup" id="center-brand-lockup">
+                <span class="lockup-eyebrow">It's time to create</span>
+                <h1 class="lockup-title">Tactile</h1>
+                <p class="lockup-sub">Next-gen tech, zero hassle—find your next phone today.</p>
+            </div>
+
+            <!-- Floating 3D Service Micro-Labels (Track segments in 3D coordinate space) -->
+            <div class="floating-service-labels" id="floating-service-labels">
+                <!-- 1. Web Design -->
+                <div class="service-pill-3d" id="badge-web-design">
+                    <span class="pill-dot"></span>
+                    <span class="pill-title">Web Design</span>
+                    <span class="pill-index">01</span>
+                </div>
+
+                <!-- 2. Visual Identity -->
+                <div class="service-pill-3d" id="badge-visual-identity">
+                    <span class="pill-dot"></span>
+                    <span class="pill-title">Visual Identity</span>
+                    <span class="pill-index">02</span>
+                </div>
+
+                <!-- 3. Development -->
+                <div class="service-pill-3d" id="badge-development">
+                    <span class="pill-dot"></span>
+                    <span class="pill-title">Development</span>
+                    <span class="pill-index">03</span>
+                </div>
+
+                <!-- 4. Motion -->
+                <div class="service-pill-3d" id="badge-motion">
+                    <span class="pill-dot"></span>
+                    <span class="pill-title">Motion</span>
+                    <span class="pill-index">04</span>
+                </div>
+
+                <!-- 5. Brand Positioning -->
+                <div class="service-pill-3d" id="badge-brand-positioning">
+                    <span class="pill-dot"></span>
+                    <span class="pill-title">Brand Positioning</span>
+                    <span class="pill-index">05</span>
+                </div>
+            </div>
+
+            <!-- Bottom Assembly Status / Scroll Indicator -->
+            <div class="bottom-assembly-bar">
+                <div class="assembly-status">
+                    <span class="status-pulse-dot"></span>
+                    <span id="assembly-progress-text">SCROLL TO ASSEMBLE 3D LETTERMARK [ 0% ]</span>
+                </div>
+                <div class="assembly-meta-coords">
+                    BRISTOL // LONDON // EXP. 2026
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ==========================================================================
+         SHOWCASE SUITE (PHONES & ACCESSORIES)
+         ========================================================================== -->
+    <div class="showcase-sections-wrapper" id="showcase-sections-wrapper">
+
+        <!-- ==========================================================================
+             MERCI-MICHEL INSPIRED HORIZONTAL PROJECT SHOWCASE (PHONES SECTION)
+             ========================================================================== -->
+        <section class="merci-projects-section" id="merci-projects-section">
+
+            <!-- Background Video strictly for Phones Section -->
+            <div class="section-bg-video-container" id="phones-bg-video-container">
+                <video id="phones-bg-video" 
+                       class="section-bg-video" 
+                       src="assets/videos/Smartphones_floating_in_dark_studio_3d025f26.mp4" 
+                       loop 
+                       playsinline 
+                       webkit-playsinline
+                       muted 
+                       autoplay 
+                       disablePictureInPicture
+                       preload="auto"></video>
+                <div class="section-video-overlay"></div>
+            </div>
+
+        <!-- Top Header HUD -->
+        <header class="merci-header">
+            <div class="merci-logo-monogram">
+                <span class="merci-monogram-icon">✦</span>
+                <span class="merci-brand-text">TACTILE STUDIO®</span>
+            </div>
+            <nav class="merci-nav-links">
+                <a href="#merci-projects-section" class="merci-nav-link active">PHONES</a>
+                <a href="#accessories-3d-section" class="merci-nav-link">ACCESSORIES [3D]</a>
+                <a href="contact.html" class="merci-nav-link">CONTACT</a>
+            </nav>
+        </header>
+
+        <!-- Horizontal Project Slider Viewport & Track -->
+        <div class="merci-slider-viewport" id="merci-slider-viewport">
+            <div class="projects-slider-track" id="projects-slider-track">
+                <!-- Dynamically populated from ProjectsGallery -->
+            </div>
+        </div>
+
+        <!-- Bottom Peripheral Bar -->
+        <footer class="merci-bottom-bar">
+            <!-- Bottom Left Year Stamp -->
+            <div class="merci-year-stamp">
+                <span>2020 / 2026</span>
+            </div>
+
+            <!-- Bottom Center Scrubber Line & Category Filters -->
+            <div class="merci-center-controls">
+                <!-- Minimal Horizontal Progress Scrubber Line -->
+                <div class="scrubber-bar-container" id="scrubber-bar-container" title="Click or scrub to navigate gallery">
+                    <div class="scrubber-progress-fill" id="scrubber-progress-fill"></div>
+                </div>
+
+                <!-- Interactive Category Filters -->
+                <div class="merci-category-filters">
+                    <button class="merci-filter-btn active" data-filter="ALL">ALL</button>
+                    <button class="merci-filter-btn" data-filter="SMARTPHONE">SMARTPHONE</button>
+                    <button class="merci-filter-btn" data-filter="GAMING">GAMING 22</button>
+                    <button class="merci-filter-btn" data-filter="ONLINE EVENT">ONLINE EVENT 5</button>
+                    <button class="merci-filter-btn" data-filter="INSTALLATION">INSTALLATION 13</button>
+                    <button class="merci-filter-btn" data-filter="WEBSITE">WEBSITE 11</button>
+                    <button class="merci-filter-btn" data-filter="BRAND CONTENT">BRAND CONTENT 7</button>
+                </div>
+            </div>
+
+            <!-- Bottom Right Navigation Hint -->
+            <div class="merci-scroll-hint">
+                <span>[ DRAG OR SCROLL HORIZONTALLY ↔ ]</span>
+            </div>
+        </footer>
+
+    </section>
+
+    <!-- ==========================================================================
+         INTERACTIVE 3D ACCESSORIES SHOWCASE SECTION
+         ========================================================================== -->
+    <section class="accessories-3d-section" id="accessories-3d-section">
+
+        <!-- Background Video strictly for Accessories Section (Kept Same) -->
+        <div class="section-bg-video-container" id="accessories-bg-video-container">
+            <video id="accessories-bg-video" 
+                   class="section-bg-video" 
+                   src="assets/videos/gemini_generated_video_a3454639.mp4" 
+                   loop 
+                   playsinline 
+                   webkit-playsinline
+                   muted 
+                   autoplay 
+                   disablePictureInPicture
+                   preload="auto"></video>
+            <div class="section-video-overlay"></div>
+        </div>
+
+        <!-- Top Header HUD -->
+        <header class="accessory-header">
+            <div class="flex items-center">
+                <div class="merci-logo-monogram">
+                    <span class="merci-monogram-icon">✦</span>
+                    <span class="merci-brand-text">TACTILE STUDIO®</span>
+                </div>
+                <div class="accessory-3d-badge">
+                    <span class="dot-live-3d"></span>
+                    <span>3D ACCESSORY SUITE</span>
+                </div>
+            </div>
+            <nav class="merci-nav-links">
+                <a href="#merci-projects-section" class="merci-nav-link">PHONES</a>
+                <a href="#accessories-3d-section" class="merci-nav-link active">ACCESSORIES [3D]</a>
+                <a href="contact.html" class="merci-nav-link">CONTACT</a>
+            </nav>
+        </header>
+
+        <!-- Horizontal 3D Accessory Slider Viewport & Track -->
+        <div class="merci-slider-viewport" id="accessories-slider-viewport">
+            <div class="projects-slider-track" id="accessories-slider-track">
+                <!-- Dynamically populated from Accessories3DShowcase with live 3D models -->
+            </div>
+        </div>
+
+        <!-- Bottom Peripheral Bar -->
+        <footer class="merci-bottom-bar">
+            <!-- Bottom Left Year Stamp -->
+            <div class="merci-year-stamp">
+                <span>3D ARTIFACT // 2026</span>
+            </div>
+
+            <!-- Bottom Center Scrubber Line & Category Filters -->
+            <div class="merci-center-controls">
+                <!-- Minimal Horizontal Progress Scrubber Line -->
+                <div class="scrubber-bar-container" id="acc-scrubber-bar-container" title="Click or scrub to navigate accessories">
+                    <div class="scrubber-progress-fill" id="acc-scrubber-progress-fill"></div>
+                </div>
+
+                <!-- Interactive Category Filters -->
+                <div class="merci-category-filters">
+                    <button class="merci-filter-btn accessory-filter-btn active" data-filter="ALL">ALL ACCESSORIES</button>
+                    <button class="merci-filter-btn accessory-filter-btn" data-filter="CHARGING">CHARGERS & MAGSAFE</button>
+                    <button class="merci-filter-btn accessory-filter-btn" data-filter="OPTICAL">OPTICAL SHIELDS</button>
+                    <button class="merci-filter-btn accessory-filter-btn" data-filter="AUDIO">AUDIO CAPSULES</button>
+                    <button class="merci-filter-btn accessory-filter-btn" data-filter="CASING">ARMOR CASES</button>
+                    <button class="merci-filter-btn accessory-filter-btn" data-filter="STORAGE">WALLETS</button>
+                </div>
+            </div>
+
+            <!-- Bottom Right Navigation Hint -->
+            <div class="merci-scroll-hint">
+                <span>[ DRAG 3D TO ROTATE · WHEEL TO SLIDE ]</span>
+            </div>
+        </footer>
+
+    </section>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="audio.js"></script>
+    <script src="core-portal.js"></script>
+    <script src="assembly-hero.js"></script>
+    <script src="projects-gallery.js"></script>
+    <script src="accessories-3d.js"></script>
+    <script src="app.js"></script>
+
+</body>
+</html>
