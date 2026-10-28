@@ -31,12 +31,12 @@ class ProjectsGallery {
                 description: "256 GB , PTA APPROVED , BOX PACK",
                 category: "SMARTPHONE",
                 date: "10/2026",
-                imageSrc: "/assets/products/apple-iphone18-pro-max-1.png",
+                imageSrc: "assets/products/apple-iphone18-pro-max-1.png",
                 colors: [
-                    { name: "Burgundy", hex: "#5C1D2A", image: "/assets/products/apple-iphone18-pro-max-1.png" },
-                    { name: "Deep Blue", hex: "#223549", image: "/assets/products/apple-18-pro-max-blue.png" },
-                    { name: "Space Black", hex: "#1A1B20", image: "/assets/products/apple-18-pro-max-black.webp" },
-                    { name: "Silver White", hex: "#E2E4E9", image: "/assets/products/apple-18-pro-max-silver.png" }
+                    { name: "Burgundy", hex: "#5C1D2A", image: "assets/products/apple-iphone18-pro-max-1.png" },
+                    { name: "Deep Blue", hex: "#223549", image: "assets/products/apple-18-pro-max-blue.png" },
+                    { name: "Space Black", hex: "#1A1B20", image: "assets/products/apple-18-pro-max-black.webp" },
+                    { name: "Silver White", hex: "#E2E4E9", image: "assets/products/apple-18-pro-max-silver.png" }
                 ]
             },
             {
@@ -48,11 +48,11 @@ class ProjectsGallery {
                 description: "256/512 GB & PTA/NON Available",
                 category: "SMARTPHONE",
                 date: "10/2026",
-                imageSrc: "/assets/products/apple-17-pro-max-orange.png",
+                imageSrc: "assets/products/apple-17-pro-max-orange.png",
                 colors: [
-                    { name: "Cosmic Orange", hex: "#E06D2D", image: "/assets/products/apple-17-pro-max-orange.png" },
-                    { name: "Silver White", hex: "#E2E4E9", image: "/assets/products/apple-17-pro-max-silver-new.png" },
-                    { name: "Deep Blue", hex: "#2A3545", image: "/assets/products/apple-17-pro-max-blue.png" }
+                    { name: "Cosmic Orange", hex: "#E06D2D", image: "assets/products/apple-17-pro-max-orange.png" },
+                    { name: "Silver White", hex: "#E2E4E9", image: "assets/products/apple-17-pro-max-silver-new.png" },
+                    { name: "Deep Blue", hex: "#2A3545", image: "assets/products/apple-17-pro-max-blue.png" }
                 ]
             },
             {
@@ -64,11 +64,11 @@ class ProjectsGallery {
                 description: "256 GB Natural Titanium , 512 Black Titanium PTA Approved box pack",
                 category: "SMARTPHONE",
                 date: "10/2026",
-                imageSrc: "/assets/products/apple-16-pro-max-desert.png",
+                imageSrc: "assets/products/apple-16-pro-max-desert.png",
                 colors: [
-                    { name: "Desert Titanium", hex: "#C5A58A", image: "/assets/products/apple-16-pro-max-desert.png" },
-                    { name: "White Titanium", hex: "#E3E4E8", image: "/assets/products/apple-16-pro-max-white.png" },
-                    { name: "Black Titanium", hex: "#3C3B37", image: "/assets/products/apple-16-pro-max-black.webp" }
+                    { name: "Desert Titanium", hex: "#C5A58A", image: "assets/products/apple-16-pro-max-desert.png" },
+                    { name: "White Titanium", hex: "#E3E4E8", image: "assets/products/apple-16-pro-max-white.png" },
+                    { name: "Black Titanium", hex: "#3C3B37", image: "assets/products/apple-16-pro-max-black.webp" }
                 ]
             },
             {
@@ -80,12 +80,12 @@ class ProjectsGallery {
                 description: "512/256/128 GB , Battery Health 90/88/84 , NON- PTA",
                 category: "SMARTPHONE",
                 date: "10/2026",
-                imageSrc: "/assets/products/apple-15-pro-max-natural.png",
+                imageSrc: "assets/products/apple-15-pro-max-natural.png",
                 colors: [
-                    { name: "Natural Titanium", hex: "#9E988E", image: "/assets/products/apple-15-pro-max-natural.png" },
-                    { name: "Blue Titanium", hex: "#3B4454", image: "/assets/products/apple-15-pro-max-blue.png" },
-                    { name: "White Titanium", hex: "#E3E4E8", image: "/assets/products/apple-15-pro-max-white.png" },
-                    { name: "Black Titanium", hex: "#3D3C40", image: "/assets/products/15-pro-max-black-titanium.webp" }
+                    { name: "Natural Titanium", hex: "#9E988E", image: "assets/products/apple-15-pro-max-natural.png" },
+                    { name: "Blue Titanium", hex: "#3B4454", image: "assets/products/apple-15-pro-max-blue.png" },
+                    { name: "White Titanium", hex: "#E3E4E8", image: "assets/products/apple-15-pro-max-white.png" },
+                    { name: "Black Titanium", hex: "#3D3C40", image: "assets/products/15-pro-max-black-titanium.webp" }
                 ]
             },
             {
@@ -97,11 +97,11 @@ class ProjectsGallery {
                 description: "256 GB PTA Approved",
                 category: "SMARTPHONE",
                 date: "10/2026",
-                imageSrc: "/assets/products/s25-ultra-gray.webp",
+                imageSrc: "assets/products/s25-ultra-gray.webp",
                 colors: [
-                    { name: "Titanium Gray", hex: "#C5C3BC", image: "/assets/products/s25-ultra-gray.webp" },
-                    { name: "Titanium Black", hex: "#37383A", image: "/assets/products/s25-ultra-black.webp" },
-                    { name: "Titanium Silverblue", hex: "#C1C7D6", image: "/assets/products/s25-ultra-silverblue.png" }
+                    { name: "Titanium Gray", hex: "#C5C3BC", image: "assets/products/s25-ultra-gray.webp" },
+                    { name: "Titanium Black", hex: "#37383A", image: "assets/products/s25-ultra-black.webp" },
+                    { name: "Titanium Silverblue", hex: "#C1C7D6", image: "assets/products/s25-ultra-silverblue.png" }
                 ]
             },
             {
@@ -113,12 +113,12 @@ class ProjectsGallery {
                 description: "512 GB NON-PTA",
                 category: "SMARTPHONE",
                 date: "10/2026",
-                imageSrc: "/assets/products/s24-ultra-gray.webp",
+                imageSrc: "assets/products/s24-ultra-gray.webp",
                 colors: [
-                    { name: "Titanium Gray", hex: "#88847E", image: "/assets/products/s24-ultra-gray.webp" },
-                    { name: "Titanium Violet", hex: "#4C4656", image: "/assets/products/s24-ultra-violet.png" },
-                    { name: "Titanium Blue", hex: "#C8D2DC", image: "/assets/products/s24-ultra-blue.png" },
-                    { name: "Titanium Yellow", hex: "#E4D8A5", image: "/assets/products/s24-ultra-yellow.png" }
+                    { name: "Titanium Gray", hex: "#88847E", image: "assets/products/s24-ultra-gray.webp" },
+                    { name: "Titanium Violet", hex: "#4C4656", image: "assets/products/s24-ultra-violet.png" },
+                    { name: "Titanium Blue", hex: "#C8D2DC", image: "assets/products/s24-ultra-blue.png" },
+                    { name: "Titanium Yellow", hex: "#E4D8A5", image: "assets/products/s24-ultra-yellow.png" }
                 ]
             }
         ];

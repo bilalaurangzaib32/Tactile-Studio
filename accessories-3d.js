@@ -20,7 +20,7 @@ class Accessories3DShowcase {
                 specs: "Apple 30W USB-C Power Adapter",
                 price: "",
                 type: "adapter",
-                imageSrc: "/assets/products/apple-adapter-30w.png",
+                imageSrc: "assets/products/apple-adapter-30w.png",
                 glowColor: "rgba(215, 230, 255, 0.42)"
             },
             {
@@ -31,7 +31,7 @@ class Accessories3DShowcase {
                 specs: "Ronin Dual Port Adapter",
                 price: "",
                 type: "adapter",
-                imageSrc: "/assets/products/ronin-adapter-new.webp",
+                imageSrc: "assets/products/ronin-adapter-new.webp",
                 glowColor: "rgba(90, 110, 140, 0.40)"
             },
             {
@@ -42,7 +42,7 @@ class Accessories3DShowcase {
                 specs: "Official Samsung 25W USB-C Black Charger",
                 price: "",
                 type: "adapter",
-                imageSrc: "/assets/products/samsung-adapter-25w.png",
+                imageSrc: "assets/products/samsung-adapter-25w.png",
                 glowColor: "rgba(100, 130, 175, 0.40)"
             },
             {
